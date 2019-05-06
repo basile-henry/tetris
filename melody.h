@@ -66,23 +66,23 @@ int melody[MELODY_LENGTH][2] = {
   // END PART A
 
   // BEGIN PART B
+  {NOTE_E3,  8},
+  {NOTE_C3,  8},
+  {NOTE_D3,  8},
+  {NOTE_B2,  8},
+  {NOTE_C3,  8},
+  {NOTE_A2,  8},
+  {NOTE_GS2, 8},
+  {      0,  8},
+  {NOTE_E3,  8},
+  {NOTE_C3,  8},
+  {NOTE_D3,  8},
+  {NOTE_B2,  8},
+  {NOTE_C3,  4},
   {NOTE_E3,  4},
-  {NOTE_C3,  4},
-  {NOTE_D3,  4},
-  {NOTE_B2,  4},
-  {NOTE_C3,  4},
-  {NOTE_A2,  4},
-  {NOTE_GS2, 4},
-  {      0,  4},
-  {NOTE_E3,  4},
-  {NOTE_C3,  4},
-  {NOTE_D3,  4},
-  {NOTE_B2,  4},
-  {NOTE_C3,  2},
-  {NOTE_E3,  2},
-  {NOTE_A3,  4},
-  {NOTE_GS3, 4},
-  {      0,  4}
+  {NOTE_A3,  8},
+  {NOTE_GS3, 8},
+  {      0,  8}
   // END PART B
 };
 
