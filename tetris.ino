@@ -5,6 +5,7 @@
 #include <timer.h>
 #include <EasyBuzzer.h>
 #include <EasyButton.h>
+#include "characters.h"
 #include "melody.h"
 #include "shapes.h"
 
