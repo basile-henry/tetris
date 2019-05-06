@@ -1,7 +1,7 @@
 #include "pitches.h"
 
 // When performing this, one ought to play AAB (i.e. repeat A).
-#define MELODY_LENGTH 74
+#define MELODY_LENGTH 75
 int melody[MELODY_LENGTH][2] = {
   // BEGIN PART A
   {NOTE_E4, 3},
@@ -78,7 +78,8 @@ int melody[MELODY_LENGTH][2] = {
   {NOTE_C3,  4},
   {NOTE_D3,  4},
   {NOTE_B2,  4},
-  {NOTE_C3,  4},
+  {NOTE_C3,  2},
+  {NOTE_E3,  2},
   {NOTE_A3,  4},
   {NOTE_GS3, 4},
   {      0,  4}
