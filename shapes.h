@@ -49,7 +49,7 @@ const int bar_shape[4][4] =
     {0, 1, 0, 0}
   };
 
-const int shapes[NUM_SHAPES] = {
+const int shapes[4][4][NUM_SHAPES] = {
   l_shape,
   j_shape,
   t_shape,
