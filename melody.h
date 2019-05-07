@@ -59,9 +59,9 @@ int melody[MELODY_LENGTH][2] = {
   {      0, 1},
   {NOTE_C4, 3},
   {      0, 1},
-  {NOTE_A4, 3},
+  {NOTE_A3, 3},
   {      0, 1},
-  {NOTE_A4, 3},
+  {NOTE_A3, 3},
   {      0, 5},
   // END PART A
 
