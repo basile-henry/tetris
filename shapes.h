@@ -1,62 +1,54 @@
 #define NUM_SHAPES 7
 
-const int l_shape[4][4] =
+const int shapes[NUM_SHAPES][4][4] = {
+  // l_shape
   { {0, 0, 0, 0},
     {0, 1, 1, 1},
     {0, 1, 0, 0},
     {0, 0, 0, 0}
-  };
+  },
 
-const int j_shape[4][4] =
+  // j_shape
   { {0, 0, 0, 0},
     {1, 1, 1, 0},
     {0, 0, 1, 0},
     {0, 0, 0, 0}
-  };
+  },
 
-const int t_shape[4][4] =
+  // t_shape
   { {0, 0, 0, 0},
     {0, 1, 1, 1},
     {0, 0, 1, 0},
     {0, 0, 0, 0}
-  };
+  },
 
-const int square_shape[4][4] =
+  // square_shape
   { {0, 0, 0, 0},
     {0, 1, 1, 0},
     {0, 1, 1, 0},
     {0, 0, 0, 0}
-  };
+  },
 
-const int s_shape[4][4] =
+  // s_shape
   { {0, 1, 0, 0},
     {0, 1, 1, 0},
     {0, 0, 1, 0},
     {0, 0, 0, 0}
-  };
+  },
 
-const int z_shape[4][4] =
+  // z_shape
   { {0, 0, 1, 0},
     {0, 1, 1, 0},
     {0, 1, 0, 0},
     {0, 0, 0, 0}
-  };
+  },
 
-const int bar_shape[4][4] =
+  // bar_shape
   { {0, 1, 0, 0},
     {0, 1, 0, 0},
     {0, 1, 0, 0},
     {0, 1, 0, 0}
-  };
-
-const int shapes[4][4][NUM_SHAPES] = {
-  l_shape,
-  j_shape,
-  t_shape,
-  square_shape,
-  s_shape,
-  z_shape,
-  bar_shape
+  }
 };
 
 void transpose(int shape[4][4]) {
