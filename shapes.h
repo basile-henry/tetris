@@ -1,6 +1,7 @@
 #define NUM_SHAPES 7
+typedef char shape[4][4];
 
-const int shapes[NUM_SHAPES][4][4] = {
+const shape shapes[NUM_SHAPES] = {
   // l_shape
   { {0, 0, 0, 0},
     {0, 1, 1, 1},
@@ -51,7 +52,7 @@ const int shapes[NUM_SHAPES][4][4] = {
   }
 };
 
-void transpose(int shape[4][4]) {
+void transpose(shape shape) {
   for (int i=0; i<4; i++) {
     for (int j=i+1; j<4; j++) {
       int temp = shape[i][j];
@@ -61,7 +62,7 @@ void transpose(int shape[4][4]) {
   }
 }
 
-void reflect(int shape[4][4]) {
+void reflect(shape shape) {
   for (int i=0; i<2; i++) {
     for (int j=0; j<4; j++) {
       int temp = shape[i][j];
@@ -71,7 +72,7 @@ void reflect(int shape[4][4]) {
   }
 }
 
-void rotate(int shape[4][4], bool clockwise = true) {
+void rotate(shape shape, bool clockwise = true) {
   if (clockwise) {
     reflect(shape);
     transpose(shape);
@@ -80,4 +81,3 @@ void rotate(int shape[4][4], bool clockwise = true) {
     reflect(shape);
   }
 }
-
