@@ -84,11 +84,12 @@ void play_note() {
 
 ////////////////////////////////////////////////////////////////////////////////
 // GAME LOGIC
-#define HEIGHT 42
+#define HEIGHT 30
 #define WIDTH  10
 
 int x, y;
 int cur_shape[4][4];
+int next_shape[4][4];
 uint16_t buffer[HEIGHT];
 int points;
 
@@ -100,6 +101,7 @@ void game_setup() {
   y = 0;
   points = 0;
   get_new_shape();
+  get_new_shape();
   memset(buffer, 0, HEIGHT * sizeof(uint16_t));
 }
 
@@ -109,7 +111,7 @@ void game_update() {
 }
 
 void position_update() {
-  int new_x = (analogRead(POT) >> 6) - 3;
+  int new_x = 13 - (analogRead(POT) >> 6);
   int tmp_x;
 
   while (x != new_x) {
@@ -182,24 +184,40 @@ bool is_colliding(int x, int y, int shape[4][4]) {
 }
 
 void get_new_shape() {
-  memcpy(cur_shape, shapes[random(NUM_SHAPES)], 4*4*sizeof(int));
+  memcpy(cur_shape, next_shape, 4*4*sizeof(int));
+  memcpy(next_shape, shapes[random(NUM_SHAPES)], 4*4*sizeof(int));
   for (int r=random(4); r>=0; r--) { rotate(cur_shape); }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // VIEW
 #define SQUARE_SIZE     3
+#define GAME_X_OFF      1
+#define GAME_Y_OFF     37
+#define PREVIEW_X_OFF   1
+#define PREVIEW_Y_OFF  22
 
-void draw_rect(int x, int y, uint16_t color) {
+void draw_rect(int x, int y, int width, int height) {
+  display.drawRect(y, SCREEN_HEIGHT - width - x, height, width, 1);
+}
+
+void draw_block(int x_off, int y_off, int x, int y, uint16_t color) {
   for (int i=0; i<3; i++) {
     for (int j=0; j<3; j++) {
       if (i == 1 && j == 1) continue;
 
-      int i_ = SQUARE_SIZE*x + i + 1;
-      int j_ = SQUARE_SIZE*y + j + 1;
+      int i_ = y_off + SQUARE_SIZE*y + i;
+      int j_ = x_off + SQUARE_SIZE*x + j;
 
-      // ! x and y swapped
-      display.drawPixel(j_, i_, color);
+      display.drawPixel(i_, SCREEN_HEIGHT - 1 - j_, color);
+    }
+  }
+}
+
+void draw_shape(int x_off, int y_off, int x, int y, int shape[4][4]) {
+  for (int i=0; i<4; ++i) {
+    for (int j=0; j<4; ++j) {
+      if (shape[j][i]) draw_block(x_off, y_off, x + j, y + i, 1);
     }
   }
 }
@@ -207,23 +225,23 @@ void draw_rect(int x, int y, uint16_t color) {
 void view() {
   display.clearDisplay();
 
-  draw_rect(4, 8, 1);
+  // Header
 
-  // Border
-  display.drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
+  // Preview
+  draw_rect(0, PREVIEW_Y_OFF - 1, 2 + 4 * SQUARE_SIZE, 2 + 4 * SQUARE_SIZE);
+  draw_shape(PREVIEW_X_OFF, PREVIEW_Y_OFF, 0, 0, next_shape);
+
+  // Game border
+  draw_rect(0, GAME_Y_OFF - 1, SCREEN_HEIGHT, HEIGHT * SQUARE_SIZE + 2);
 
   // Draw buffer
   for (int i=0; i<HEIGHT; ++i) {
     for (int j=0; j<WIDTH; ++j) {
-      draw_rect(j, i, buffer_get(j, i));
+      draw_block(GAME_X_OFF, GAME_Y_OFF, j, i, buffer_get(j, i));
     }
   }
 
-  for (int i=0; i<4; ++i) {
-    for (int j=0; j<4; ++j) {
-      if (cur_shape[i][j]) draw_rect(x + i, y + j, 1);
-    }
-  }
+  draw_shape(GAME_X_OFF, GAME_Y_OFF, x, y, cur_shape);
 
   display.display();
 }
