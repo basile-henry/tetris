@@ -161,8 +161,7 @@ void block_update() {
 
   noteDuration = max(30, 100 - 5 * level);
   unsigned int speed = max(30, 500 - 25 * level);
-  unsigned int next_block_update = btn1.isPressed() ? speed : 30;
-  timer.in(next_block_update, block_update);
+  timer.in(speed, block_update);
 }
 
 void try_rotate() {
@@ -184,6 +183,7 @@ void hold() {
     memcpy(tmp_shape, hold_shape, sizeof(shape));
     memcpy(hold_shape, cur_shape, sizeof(shape));
     memcpy(cur_shape, tmp_shape, sizeof(shape));
+    move_away_from_wall();
   }
 }
 
@@ -212,7 +212,10 @@ void get_new_shape() {
   memcpy(cur_shape, next_shape, sizeof(shape));
   memcpy(next_shape, shapes[random(NUM_SHAPES)], sizeof(shape));
   for (int r=random(4); r>=0; r--) { rotate(next_shape); }
+  move_away_from_wall();
+}
 
+void move_away_from_wall() {
   // Move if colliding with wall initially
   while (is_colliding(x, y, cur_shape) == 2) {
     if (x < 5) x++;
@@ -296,7 +299,7 @@ void view() {
 
   // Hold
   draw_rect(SCREEN_HEIGHT - BOX_WIDTH, PREVIEW_Y_OFF - 1, BOX_WIDTH, BOX_WIDTH);
-  if (hold_shape != NULL) {
+  if (holding) {
     draw_shape(SCREEN_HEIGHT - BOX_WIDTH + PREVIEW_X_OFF, PREVIEW_Y_OFF, 0, 0, hold_shape);
   }
 
